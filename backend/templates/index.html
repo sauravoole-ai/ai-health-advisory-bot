@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Health Advisory Assistant</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+    <div class="app-shell">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-mark">✚</div>
+                <div>
+                    <h1>Health AI</h1>
+                    <p>Advisory Console</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button type="button" class="nav-item active" data-target="overviewModule">
+                    <span>⌁</span>
+                    Overview
+                </button>
+
+                <button type="button" class="nav-item" data-target="vitalsModule">
+                    <span>◈</span>
+                    Vitals Analysis
+                </button>
+
+                <button type="button" class="nav-item" data-target="chatModule">
+                    <span>✦</span>
+                    AI Health Chat
+                </button>
+
+                <button type="button" class="nav-item" data-target="voiceModule">
+                    <span>◉</span>
+                    AI Voice Chat
+                </button>
+
+                <button type="button" class="nav-item" data-target="safetyModule">
+                    <span>◇</span>
+                    Safety
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="system-pill">
+                    <span class="live-dot"></span>
+                    System Ready
+                </div>
+
+                <p>Flask · Groq API · AIoT Ready</p>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main-area">
+            <header class="topbar">
+                <div>
+                    <p class="page-kicker">AI Health Advisory Assistant</p>
+                    <h2 id="pageTitle">Overview</h2>
+                </div>
+
+                <div class="top-actions">
+                    <button type="button" class="compact-btn" data-target="vitalsModule">
+                        Vitals
+                    </button>
+
+                    <button type="button" class="primary-compact-btn" data-target="voiceModule">
+                        Voice Chat
+                    </button>
+                </div>
+            </header>
+
+            <!-- Overview -->
+            <section id="overviewModule" class="module-panel active-panel" data-title="Overview">
+                <div class="hero-panel">
+                    <div class="hero-copy">
+                        <span class="eyebrow">Safety-first healthcare AI interface</span>
+
+                        <h3>
+                            Preliminary health guidance through vitals,
+                            symptoms, AI chat and voice interaction.
+                        </h3>
+
+                        <p>
+                            A clean advisory console that evaluates SpO₂, heart rate and symptoms
+                            using backend safety logic, then provides simple AI-assisted guidance.
+                        </p>
+
+                        <div class="hero-actions">
+                            <button type="button" class="primary-btn" data-target="vitalsModule">
+                                Analyze Vitals
+                            </button>
+
+                            <button type="button" class="secondary-btn" data-target="chatModule">
+                                Open Chat
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="status-ring">
+                            <div>
+                                <strong>AI</strong>
+                                <span>Ready</span>
+                            </div>
+                        </div>
+
+                        <div class="status-list">
+                            <div>
+                                <span>Manual Vitals</span>
+                                <strong>Ready</strong>
+                            </div>
+
+                            <div>
+                                <span>Live Monitor</span>
+                                <strong>Waiting</strong>
+                            </div>
+
+                            <div>
+                                <span>Voice Chat</span>
+                                <strong>Available</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-grid">
+                    <article class="mini-card">
+                        <span>01</span>
+                        <h4>Manual Vitals</h4>
+                        <p>Enter SpO₂, BPM and symptoms manually for testing and fallback use.</p>
+                    </article>
+
+                    <article class="mini-card">
+                        <span>02</span>
+                        <h4>Live AIoT Monitor</h4>
+                        <p>Receives ESP32 sensor data automatically and speaks useful advisory updates.</p>
+                    </article>
+
+                    <article class="mini-card">
+                        <span>03</span>
+                        <h4>AI Voice Chat</h4>
+                        <p>Ask health questions by speaking and receive spoken AI responses.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Vitals Analysis -->
+            <section id="vitalsModule" class="module-panel" data-title="Vitals Analysis">
+                <div class="panel-header">
+                    <div>
+                        <p class="section-label">Vitals advisory</p>
+                        <h3>Vitals Analysis</h3>
+                        <p>
+                            Use manual entry for testing or Live Monitor for automatic ESP32-based AIoT readings.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="submode-tabs">
+                    <button type="button" class="submode-btn active" data-vitals-tab="manualVitalsPanel">
+                        Manual Entry
+                    </button>
+
+                    <button type="button" class="submode-btn" data-vitals-tab="liveVitalsPanel">
+                        Live Monitor / AIoT
+                    </button>
+                </div>
+
+                <!-- Manual Entry -->
+                <div id="manualVitalsPanel" class="vitals-subpanel active-subpanel">
+                    <form id="vitalsForm" class="form-card">
+                        <div class="two-col">
+                            <div class="field">
+                                <label for="spo2">SpO₂ Level</label>
+                                <div class="input-box">
+                                    <input
+                                        type="number"
+                                        id="spo2"
+                                        name="spo2"
+                                        placeholder="97"
+                                        min="50"
+                                        max="100"
+                                        required
+                                    />
+                                    <span>%</span>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label for="bpm">Heart Rate</label>
+                                <div class="input-box">
+                                    <input
+                                        type="number"
+                                        id="bpm"
+                                        name="bpm"
+                                        placeholder="78"
+                                        min="30"
+                                        max="220"
+                                        required
+                                    />
+                                    <span>BPM</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="symptoms">Symptoms / Concern</label>
+                            <textarea
+                                id="symptoms"
+                                name="symptoms"
+                                rows="4"
+                                placeholder="Example: mild weakness, cough, tiredness..."
+                            ></textarea>
+                        </div>
+
+                        <div class="form-footer">
+                            <p>Manual mode is for testing and fallback. Voice advisory is disabled here.</p>
+                            <button type="submit" id="analyzeBtn" class="primary-btn">
+                                Analyze Health
+                            </button>
+                        </div>
+                    </form>
+
+                    <div id="vitalsResult" class="result-card hidden">
+                        <div class="result-header">
+                            <div>
+                                <span>Health Status</span>
+                                <h3 id="resultStatus">--</h3>
+                            </div>
+
+                            <div id="riskBadge" class="risk-badge">--</div>
+                        </div>
+
+                        <div class="metrics-row">
+                            <div class="metric-box">
+                                <span>SpO₂</span>
+                                <strong id="reportSpo2">--</strong>
+                            </div>
+
+                            <div class="metric-box">
+                                <span>BPM</span>
+                                <strong id="reportBpm">--</strong>
+                            </div>
+
+                            <div class="metric-box">
+                                <span>Risk</span>
+                                <strong id="reportRisk">--</strong>
+                            </div>
+                        </div>
+
+                        <div id="emergencyBanner" class="emergency-banner hidden">
+                            <strong>Emergency attention may be required.</strong>
+                            <p>Please seek immediate medical help or contact local emergency services.</p>
+                        </div>
+
+                        <div class="advice-block">
+                            <h4>Short Advice</h4>
+                            <p id="shortAdvice">--</p>
+                        </div>
+
+                        <div class="advice-block">
+                            <h4>AI Explanation</h4>
+                            <p id="aiAdvice">--</p>
+                        </div>
+
+                        <p id="vitalsDisclaimer" class="disclaimer">
+                            This is not a medical diagnosis. Please consult a qualified healthcare professional for proper evaluation.
+                        </p>
+
+                        <div class="result-actions">
+                            <button type="button" id="copyVitalsBtn" class="secondary-btn">Copy</button>
+                            <button type="button" id="downloadVitalsBtn" class="secondary-btn">Save PDF</button>
+                            <button type="button" id="clearVitalsBtn" class="text-btn">Clear</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Monitor / AIoT -->
+                <div id="liveVitalsPanel" class="vitals-subpanel">
+                    <div class="live-monitor-grid">
+                        <div class="live-main-card">
+                            <div class="live-header">
+                                <div>
+                                    <p class="section-label">AIoT live monitor</p>
+                                    <h3>Live Sensor Advisory</h3>
+                                    <p>
+                                        Waiting for ESP32 sensor readings. Once data arrives,
+                                        the assistant updates this panel automatically.
+                                    </p>
+                                </div>
+
+                                <div id="liveConnectionBadge" class="connection-badge waiting">
+                                    Waiting
+                                </div>
+                            </div>
+
+                            <div class="live-metrics">
+                                <div class="metric-box">
+                                    <span>SpO₂</span>
+                                    <strong id="liveSpo2">--</strong>
+                                </div>
+
+                                <div class="metric-box">
+                                    <span>BPM</span>
+                                    <strong id="liveBpm">--</strong>
+                                </div>
+
+                                <div class="metric-box">
+                                    <span>Status</span>
+                                    <strong id="liveStatus">--</strong>
+                                </div>
+                            </div>
+
+                            <div class="live-meta">
+                                <div>
+                                    <span>Device</span>
+                                    <strong id="liveDevice">--</strong>
+                                </div>
+
+                                <div>
+                                    <span>Last Updated</span>
+                                    <strong id="liveUpdated">--</strong>
+                                </div>
+
+                                <div>
+                                    <span>Voice Advisory</span>
+                                    <strong id="liveVoiceState">Smart Mode</strong>
+                                </div>
+                            </div>
+
+                            <div id="liveEmergencyBanner" class="emergency-banner hidden">
+                                <strong>Emergency attention may be required.</strong>
+                                <p>Please seek immediate medical help or contact local emergency services.</p>
+                            </div>
+
+                            <div class="advice-block">
+                                <h4>Live AI Advisory</h4>
+                                <p id="liveAiAdvice">No sensor data received yet.</p>
+                            </div>
+
+                            <p class="disclaimer" id="liveDisclaimer">
+                                This is not a medical diagnosis. Please consult a qualified healthcare professional for proper evaluation.
+                            </p>
+
+                            <div class="result-actions">
+                                <button type="button" id="speakLiveAdviceBtn" class="secondary-btn">
+                                    Speak Current Advice
+                                </button>
+
+                                <button type="button" id="muteLiveVoiceBtn" class="secondary-btn">
+                                    Mute Live Voice
+                                </button>
+
+                                <button type="button" id="refreshLiveBtn" class="text-btn">
+                                    Refresh
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="live-side-card">
+                            <h4>Live Flow</h4>
+
+                            <div class="flow-list">
+                                <div>
+                                    <span>1</span>
+                                    <p>Patient places finger on MAX30102 sensor.</p>
+                                </div>
+
+                                <div>
+                                    <span>2</span>
+                                    <p>ESP32 sends SpO₂ and BPM to Flask backend.</p>
+                                </div>
+
+                                <div>
+                                    <span>3</span>
+                                    <p>Backend analyzes vitals using safety rules.</p>
+                                </div>
+
+                                <div>
+                                    <span>4</span>
+                                    <p>UI updates and voice speaks meaningful advisory updates.</p>
+                                </div>
+                            </div>
+
+                            <div class="voice-note">
+                                Smart voice rule: normal speaks once, caution/emergency speaks on meaningful updates, and status changes always speak.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Health Chat -->
+            <section id="chatModule" class="module-panel" data-title="AI Health Chat">
+                <div class="panel-header">
+                    <div>
+                        <p class="section-label">Text advisory</p>
+                        <h3>AI Health Chat</h3>
+                        <p>Ask symptom-related questions and receive simple preliminary guidance.</p>
+                    </div>
+                </div>
+
+                <div id="chatWindow" class="chat-window">
+                    <div class="message bot-message">
+                        <div class="avatar">AI</div>
+
+                        <div class="bubble">
+                            <p>
+                                Hello. I can help with basic health-related questions, symptoms,
+                                precautions, vitals and when to seek medical help.
+                            </p>
+
+                            <small>
+                                This is not a medical diagnosis. Please consult a qualified healthcare professional for proper evaluation.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="chatForm" class="chat-composer">
+                    <textarea
+                        id="chatInput"
+                        rows="3"
+                        placeholder="Type your health question..."
+                        required
+                    ></textarea>
+
+                    <button type="submit" id="sendBtn" class="primary-btn send-btn">
+                        Send
+                    </button>
+                </form>
+
+                <div class="result-actions chat-actions">
+                    <button type="button" id="copyChatBtn" class="secondary-btn">Copy Reply</button>
+                    <button type="button" id="downloadChatBtn" class="secondary-btn">Save PDF</button>
+                    <button type="button" id="clearChatBtn" class="text-btn">Clear Chat</button>
+                </div>
+            </section>
+
+            <!-- AI Voice Chat -->
+            <section id="voiceModule" class="module-panel" data-title="AI Voice Chat">
+                <div class="voice-layout">
+                    <div class="voice-main-card">
+                        <p class="section-label">Hands-free assistant</p>
+                        <h3>AI Voice Chat</h3>
+
+                        <p>
+                            Start Auto Mode once. Speak your health question, pause naturally,
+                            and the assistant will respond aloud.
+                        </p>
+
+                        <div class="voice-state">
+                            <div class="voice-orb" id="voiceOrb">
+                                <span id="voiceOrbText">Idle</span>
+                            </div>
+
+                            <p id="voiceStatus">
+                                Ready. Click Auto Mode and allow microphone access.
+                            </p>
+                        </div>
+
+                        <div class="voice-actions">
+                            <button type="button" id="autoVoiceBtn" class="primary-btn">
+                                Start Auto Mode
+                            </button>
+
+                            <button type="button" id="startVoiceBtn" class="secondary-btn">
+                                Speak Once
+                            </button>
+
+                            <button type="button" id="speakLatestBtn" class="secondary-btn">
+                                Speak Latest Reply
+                            </button>
+
+                            <button type="button" id="stopVoiceBtn" class="danger-btn">
+                                Stop
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="voice-side-card">
+                        <h4>Conversation Flow</h4>
+
+                        <div class="flow-list">
+                            <div>
+                                <span>1</span>
+                                <p>Speak your question clearly.</p>
+                            </div>
+
+                            <div>
+                                <span>2</span>
+                                <p>The app detects your pause and sends it.</p>
+                            </div>
+
+                            <div>
+                                <span>3</span>
+                                <p>The AI reply is spoken aloud.</p>
+                            </div>
+
+                            <div>
+                                <span>4</span>
+                                <p>Auto Mode listens again until stopped.</p>
+                            </div>
+                        </div>
+
+                        <div class="voice-note">
+                            Works best in Google Chrome. Keep microphone permission allowed.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Safety -->
+            <section id="safetyModule" class="module-panel" data-title="Safety">
+                <div class="panel-header">
+                    <div>
+                        <p class="section-label">Safety architecture</p>
+                        <h3>Medical Safety Notice</h3>
+                        <p>This app provides preliminary guidance only and is not a replacement for a qualified medical professional.</p>
+                    </div>
+                </div>
+
+                <div class="safety-grid">
+                    <article class="safety-card">
+                        <h4>Emergency Symptoms</h4>
+                        <p>
+                            Chest pain, severe breathlessness, fainting, confusion, blue lips,
+                            very low SpO₂ or severe weakness should be treated as urgent.
+                        </p>
+                    </article>
+
+                    <article class="safety-card">
+                        <h4>AI Limitation</h4>
+                        <p>
+                            AI responses are informational and should not be treated as diagnosis,
+                            prescription, or guaranteed medical advice.
+                        </p>
+                    </article>
+
+                    <article class="safety-card">
+                        <h4>Consultation</h4>
+                        <p>
+                            For persistent, serious or worsening symptoms, consult a qualified
+                            healthcare professional promptly.
+                        </p>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/voice.js') }}"></script>
+</body>
+</html>
