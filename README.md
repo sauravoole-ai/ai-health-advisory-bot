@@ -1,122 +1,138 @@
 # 🩺 AI Health Advisory Assistant
 
-A professional Flask-based **AI healthcare advisory web app** with manual vitals analysis, AI health chatbot, voice interaction, and AIoT-ready live sensor monitoring.
+<p align="center">
+  <b>AI-powered health advisory web app with vitals analysis, chatbot support, voice interaction, and AIoT-ready sensor monitoring.</b>
+</p>
 
-The project is designed for a future **ESP32 + MAX30102** setup where SpO₂ and BPM readings can be sent automatically to the backend, analyzed through safety rules, explained by AI, and shown on the UI with smart voice advisory.
-
-> ⚠️ This project is for educational and preliminary health guidance only. It is not a medical diagnosis system.
-
----
-
-## 🚀 Project Highlights
-
-- 🫀 Manual SpO₂ and BPM analysis
-- 📡 AIoT-ready live sensor monitor
-- 🤖 AI-powered health chatbot
-- 🎙️ Voice-based AI health chat
-- 🔊 Smart live voice advisory for sensor updates
-- 🛡️ Rule-based safety engine for vitals
-- 🚨 Emergency symptom safety handling
-- 💊 Medicine-suggestion safety filtering
-- 📄 Copy and Save-as-PDF options
-- 📱 Responsive sidebar dashboard UI
-- ⚙️ ESP32/MAX30102 backend API support
+<p align="center">
+  <img src="https://img.shields.io/badge/Backend-Flask-2f3e46?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/AI-Groq_API-83c5be?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Voice-Enabled-a5d6c8?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/AIoT-ESP32_Ready-d8bd7a?style=for-the-badge" />
+</p>
 
 ---
 
-## 🧠 Main Modes
+## ✨ Overview
 
-### 1. 🫀 Vitals Analysis Mode
+**AI Health Advisory Assistant** is a Flask-based healthcare AI application that provides preliminary health guidance using:
 
-#### Manual Entry
+- Manual SpO₂ and BPM analysis
+- AI health chatbot
+- Voice-based health interaction
+- AIoT-ready live monitor for ESP32 + MAX30102 sensor readings
+- Rule-based safety checks before AI explanation
 
-Users can manually enter:
+> ⚠️ This project is for educational and preliminary advisory purposes only. It is **not** a medical diagnosis, prescription, or treatment system.
 
-- SpO₂ level
-- Heart rate / BPM
-- Symptoms or health concern
+---
 
-The backend validates the input, analyzes it using rule-based safety logic, and generates simple AI-assisted advice.
+## 🚀 Key Features
 
-#### Live Monitor / AIoT Mode
+| Feature | Description |
+|---|---|
+| 🫀 Manual Vitals Analysis | Analyze SpO₂, BPM, and symptoms manually |
+| 📡 Live AIoT Monitor | Ready to receive ESP32/MAX30102 sensor readings |
+| 🤖 AI Health Chatbot | Answers basic health-related questions safely |
+| 🎙️ AI Voice Chat | Speak health queries and hear AI replies |
+| 🔊 Smart Sensor Voice | Speaks meaningful live sensor updates |
+| 🛡️ Safety Engine | Backend decides vitals risk before AI explanation |
+| 🚨 Emergency Handling | Serious symptoms trigger safety guidance |
+| 📄 Export Options | Copy responses and save via browser PDF |
+| 📱 Responsive UI | Sidebar dashboard layout for desktop and mobile |
 
-This mode is prepared for automatic sensor-based monitoring.
+---
 
-Expected final flow:
+## 🧠 Application Modes
+
+### 1. Vitals Analysis
+
+**Manual Entry**
+
+User enters:
+
+- SpO₂
+- BPM
+- Symptoms
+
+The backend validates the input, analyzes it using rule-based logic, and AI explains the result.
+
+**Live Monitor / AIoT Mode**
+
+Prepared for automatic ESP32 sensor readings.
 
 ```text
-MAX30102 Sensor → ESP32 → Flask Backend → Safety Analysis → AI Advisory → UI + Voice Output
+MAX30102 Sensor → ESP32 → Flask Backend → Safety Engine → AI Advisory → UI + Voice
+```
 
-The backend already includes API support for receiving live ESP32 sensor data.
+---
 
-2. 🤖 AI Health Chat Mode
+### 2. AI Health Chat
 
-A typed health chatbot for preliminary health-related questions.
+Typed chatbot for preliminary health-related questions.
 
-It supports:
+Handles:
 
-Symptom-related guidance
-Follow-up questions
-Practical precautions
-Emergency safety redirection
-Out-of-scope query handling
-Medical disclaimer
-3. 🎙️ AI Voice Chat Mode
+- Symptom guidance
+- Follow-up questions
+- Emergency redirection
+- Out-of-scope queries
+- Numeric ambiguity
+- Medical disclaimer
 
-A voice-enabled mode where users can speak health-related questions and receive spoken AI replies.
+---
 
-Features:
+### 3. AI Voice Chat
 
-Speak Once mode
-Auto conversation mode
-Speech-to-text input
-Text-to-speech AI response
-Works best in Google Chrome
-🛡️ Safety Architecture
+Voice-based mode using browser speech APIs.
 
-This project follows a safety-first design.
+Supports:
 
-Vitals Safety
+- Speak Once mode
+- Auto conversation mode
+- Speech-to-text input
+- Text-to-speech response
 
-The backend decides the vitals status using rule-based logic.
+> Best tested in Google Chrome.
 
-The AI does not independently decide the emergency level for vitals. It only explains the backend-decided result in simple language.
+---
 
-Chatbot Safety
+## 🛡️ Safety Architecture
 
-The chatbot includes handling for:
+The system separates **risk decision** from **AI explanation**.
 
-Emergency symptoms
-Medicine-related responses
-Out-of-scope questions
-Identity questions
-Numeric-only unclear input
-Missing or vague context
+```text
+Vitals Input / Sensor Data
+        ↓
+Backend Rule-Based Analysis
+        ↓
+Status Decided Safely
+        ↓
+AI Explains the Decided Result
+```
 
-Every response includes a medical disclaimer.
+The AI does **not** independently decide emergency level for vitals.
 
-🧰 Tech Stack
-Backend
-Python
-Flask
-Groq API
-python-dotenv
-Frontend
-HTML
-CSS
-JavaScript
-Browser Speech Recognition API
-Browser Text-to-Speech API
-AI Model
-Groq API
-llama-3.1-8b-instant
-AIoT Hardware Ready
-ESP32
-MAX30102 pulse oximeter sensor
-0.96 inch OLED display
-Breadboard
-Jumper wires
-📁 Project Structure
+Every health response includes a medical disclaimer.
+
+---
+
+## 🧰 Tech Stack
+
+| Layer | Tools |
+|---|---|
+| Backend | Python, Flask |
+| AI | Groq API, Llama 3.1 8B Instant |
+| Frontend | HTML, CSS, JavaScript |
+| Voice | Browser Speech Recognition + Text-to-Speech |
+| AIoT Ready | ESP32, MAX30102, OLED Display |
+| Config | python-dotenv |
+
+---
+
+## 📁 Project Structure
+
+```text
 ai-health-advisory-bot/
 │
 ├── README.md
@@ -138,162 +154,123 @@ ai-health-advisory-bot/
     ├── templates/
     │   └── index.html
     │
-    ├── static/
-    │   ├── css/
-    │   │   └── style.css
-    │   └── js/
-    │       ├── script.js
-    │       └── voice.js
-    │
-    └── venv/
-🔐 Environment Variables
+    └── static/
+        ├── css/
+        │   └── style.css
+        └── js/
+            ├── script.js
+            └── voice.js
+```
 
-Create a .env file inside the backend/ folder:
+---
 
-GROQ_API_KEY=your_groq_api_key_here
-MODEL_NAME=llama-3.1-8b-instant
+## ⚙️ Setup
 
-Use .env.example as reference:
-
-GROQ_API_KEY=your_groq_api_key_here
-MODEL_NAME=llama-3.1-8b-instant
-
-Never upload the real .env file to GitHub.
-
-⚙️ Installation & Setup
-1. Clone the repository
-git clone https://github.com/your-username/ai-health-advisory-bot.git
+```bash
+git clone https://github.com/sauravoole-ai/ai-health-advisory-bot.git
 cd ai-health-advisory-bot/backend
-2. Create virtual environment
 python -m venv venv
-3. Activate virtual environment
-
-For Windows CMD:
-
 venv\Scripts\activate
-
-For Windows PowerShell:
-
-.\venv\Scripts\Activate.ps1
-4. Install dependencies
 pip install -r requirements.txt
-5. Add .env
+python app.py
+```
 
-Create this file:
+Open:
 
-backend/.env
+```text
+http://127.0.0.1:5000
+```
 
-Add:
+Create a `.env` file inside `backend/`:
 
+```env
 GROQ_API_KEY=your_groq_api_key_here
 MODEL_NAME=llama-3.1-8b-instant
-6. Run the app
-python app.py
+```
 
-Open in browser:
+> Never upload the real `.env` file to GitHub.
 
-http://127.0.0.1:5000
-🔌 API Endpoints
-Health Check
-GET /api/health
-Manual Health Analysis
-POST /api/analyze-health
+---
 
-Example:
+## 🔌 Main API Endpoints
 
-{
-  "spo2": 97,
-  "bpm": 78,
-  "symptoms": "mild tiredness"
-}
-Live Sensor Data
-POST /api/sensor-data
+| Endpoint | Method | Purpose |
+|---|---|---|
+| `/api/health` | GET | Backend health check |
+| `/api/analyze-health` | POST | Manual vitals analysis |
+| `/api/chat` | POST | AI health chatbot |
+| `/api/sensor-data` | POST | Receive ESP32 sensor readings |
+| `/api/latest-sensor-data` | GET | Fetch latest sensor result |
 
-Example ESP32 payload:
+Example sensor payload:
 
+```json
 {
   "spo2": 97,
   "bpm": 78,
   "device_id": "ESP32_HEALTH_01"
 }
+```
 
-Emergency-style payload:
+---
 
-{
-  "spo2": 88,
-  "bpm": 118,
-  "symptoms": "severe breathlessness",
-  "device_id": "ESP32_HEALTH_01"
-}
-Latest Sensor Data
-GET /api/latest-sensor-data
-AI Health Chat
-POST /api/chat
+## 🔊 Smart Live Voice Logic
 
-Example:
+| Reading Type | Voice Behavior |
+|---|---|
+| Normal | Speaks once |
+| Caution | Speaks on meaningful updates |
+| Emergency | Speaks urgent advisory |
+| Status Change | Always speaks |
+| Manual Mode | No automatic voice |
 
-{
-  "message": "I feel weak and tired. What should I do?",
-  "history": []
-}
-📡 Live AIoT Monitor Behavior
+---
 
-The Live Monitor mode automatically fetches the latest sensor result from the backend.
+## 🧪 Testing
 
-Smart voice advisory rules:
+Tested scenarios are listed in:
 
-Normal reading: speaks once
-Caution reading: speaks on meaningful updates
-Emergency reading: speaks urgent updates
-Status change: always speaks
-Manual mode: no automatic voice
+```text
+backend/test_cases.md
+```
 
-This keeps the demo realistic without repeated unnecessary speech.
+Includes:
 
-🧪 Example Test Inputs
-Normal Reading
-{
-  "spo2": 97,
-  "bpm": 78,
-  "device_id": "ESP32_HEALTH_01"
-}
-Caution Reading
-{
-  "spo2": 93,
-  "bpm": 92,
-  "device_id": "ESP32_HEALTH_01"
-}
-Emergency Reading
-{
-  "spo2": 88,
-  "bpm": 118,
-  "symptoms": "severe breathlessness",
-  "device_id": "ESP32_HEALTH_01"
-}
-🧾 Disclaimer
+- Manual vitals normal/caution/emergency tests
+- Missing input validation
+- AI chatbot safety tests
+- Out-of-scope query handling
+- Copy, clear, and PDF checks
+- Basic responsive UI check
 
-This application does not provide medical diagnosis, prescription, or treatment.
+---
 
-It is only a preliminary health advisory tool for educational and demonstration purposes.
+## 📡 Hardware Status
 
-For serious, persistent, or worsening symptoms, consult a qualified healthcare professional immediately.
+| Component | Status |
+|---|---|
+| Backend ESP32 API | Ready |
+| Live Monitor UI | Ready |
+| ESP32 + MAX30102 real test | Pending |
+| OLED display integration | Pending |
 
+Planned flow:
+
+```text
+MAX30102 → ESP32 → Flask Backend → AI Advisory → UI + Voice
+```
+
+---
+
+## 🧾 Disclaimer
+
+This application does **not** provide medical diagnosis, prescription, or treatment.
+
+For serious, persistent, or worsening symptoms, consult a qualified healthcare professional.  
 For emergency symptoms such as chest pain, severe breathlessness, fainting, confusion, blue lips, or very low SpO₂, seek urgent medical help.
 
-🔮 Future Hardware Integration
+---
 
-The software is already prepared for ESP32-based sensor integration.
+## 🎯 Resume Highlight
 
-Planned hardware flow:
-
-MAX30102 reads SpO₂ and BPM
-ESP32 receives sensor values
-ESP32 sends JSON data to Flask backend using Wi-Fi
-Backend analyzes readings
-AI explains the result
-UI updates automatically
-Voice advisory speaks important updates
-
-🎯 Resume Highlight
-
-Built a Flask-based AI Health Advisory Assistant with manual vitals analysis, AI chatbot, voice interaction, and AIoT-ready ESP32 sensor data integration using Groq API and rule-based medical safety checks.
+Built a Flask-based **AI Health Advisory Assistant** with manual vitals analysis, AI chatbot, voice interaction, rule-based medical safety checks, and AIoT-ready ESP32/MAX30102 sensor monitoring support.
